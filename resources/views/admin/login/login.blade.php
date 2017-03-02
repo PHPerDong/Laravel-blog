@@ -11,7 +11,8 @@
 
 	<title>Xenon - Login</title>
 
-	<link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
+	<!-- <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic"> -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('zeroModal/zeroModal.css') }}" />
 	<link rel="stylesheet" href="{{ asset('assets/css/fonts/linecons/css/linecons.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/fonts/fontawesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
@@ -22,6 +23,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
 	<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ asset('zeroModal/zeroModal.js') }}"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -108,16 +110,20 @@
 											delay: .5,
 											pct: 100,
 											finish: function(){
-												
 												// Redirect after successful login page (when progress bar reaches 100%)
 												if(resp.accessGranted)
 												{
-													window.location.href = '/admin/admin';
-												}
-																							else
-												{
-													toastr.error("You have entered wrong password, please try again. User and password is <strong>demo/demo</strong> :)", "Invalid Login!", opts);
-													$passwd.select();
+													zeroModal.success({
+														content: '操作提示!',
+														contentDetail: '登入成功',
+														okFn: function() {
+															window.location.href = '/admin/admin';
+														}
+													});
+												}else {
+													/*toastr.error("登入失败", "系统提示", opts);
+													$passwd.select();*/
+													zeroModal.error('登入失败!');
 												}
 																						}
 										});

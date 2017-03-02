@@ -269,35 +269,28 @@
         {
             // Reveal Login form
             setTimeout(function(){ $(".fade-in-effect").addClass('in'); }, 1);
-
-
             // Validation and Ajax action
             $("form#reg").validate({
                 rules: {
                     name: {
                         required: true
                     },
-
                     password: {
                         required: true
                     }
                 },
-
                 messages: {
                     name: {
                         required: 'Please enter your username.'
                     },
-
                     password: {
                         required: 'Please enter your password.'
                     }
                 },
-
                 // Form Processing via AJAX
                 submitHandler: function(form)
                 {
                     show_loading_bar(100); // Fill progress bar to 70% (just a given value)
-
                     var opts = {
                         "closeButton": true,
                         "debug": false,
@@ -312,7 +305,6 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     };
-
                     $.ajax({
                         url: "{{route('admin_reg')}}",
                         method: 'POST',
@@ -330,25 +322,19 @@
                                 delay: .5,
                                 pct: 100,
                                 finish: function(){
-
                                     // Redirect after successful login page (when progress bar reaches 100%)
                                     if(resp.accessGranted)
                                     {
                                         window.location.href = '/';
-                                    }
-                                    else
-                                    {
+                                    }else{
 
                                     }
                                 }
                             });
-
                         }
                     });
-
                 }
             });
-
             // Set Form focus
             $("form#reg .form-group:has(.form-control):first .form-control").focus();
         });

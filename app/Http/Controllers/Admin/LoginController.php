@@ -17,7 +17,7 @@ class LoginController extends Controller
             if(Auth::guard('admin')->attempt($data)){
                 return response()->json(array('accessGranted'=>1));
             }else{
-                return dd($data);
+                return response()->json(array('accessGranted'=>0));
             }
         }
         return view('admin.login.login');

@@ -220,7 +220,7 @@
                         </li>
 
                         <li>
-                            <a href="extra-gallery.html">
+                            <a href="{{route('article_list')}}">
                                 <span class="title">文章列表</span>
                             </a>
                         </li>
@@ -301,7 +301,19 @@
                         <li>
                             <a href="/admin/admin_auth_permission">
                                 <i class="entypo-flow-line"></i>
-                                <span class="title">权限</span>
+                                <span class="title">菜单权限列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/admin_auth_permission">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">权限组</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/admin_auth_permission/add">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">添加菜单</span>
                             </a>
                         </li>
                     </ul>

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 //use Illuminate\Contracts\Auth\Authenticatable;
 //use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +13,12 @@ class Admin extends Authenticatable
 {
     //use \Illuminate\Auth\Authenticatable;
     use Notifiable;
+    use EntrustUserTrait;
 
     //protected $authGuardName='admin';
 
     protected $fillable = [
-        'name', 'password'
+        'name', 'password','is_super'
     ];
 
     /**
@@ -28,20 +30,7 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
 
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
-
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
 
 
 
