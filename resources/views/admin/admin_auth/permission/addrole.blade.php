@@ -11,7 +11,7 @@
     <div class="page-title">
 
             <div class="title-env">
-                <h1 class="title">管理员列表</h1>
+                <h1 class="title">添加权限组(角色)</h1>
                 {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
             </div>
 
@@ -27,7 +27,7 @@
                     </li>
                     <li class="active">
 
-                        <strong>管理员列表</strong>
+                        <strong>添加权限组</strong>
                     </li>
                 </ol>
 
@@ -44,7 +44,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">添加管理员</h3>
+                        <h3 class="panel-title">添加权限组</h3>
                         <div class="panel-options">
                             <a href="#" data-toggle="panel">
                                 <span class="collapse-icon">&ndash;</span>
@@ -60,42 +60,18 @@
                         <form role="form" id="reg">
 
                             <div class="form-group">
-                                <label for="email-1">管理员账号:</label>
-                                <input type="text" class="form-control"  name="name" id="name" placeholder="Enter your email&hellip;">
+                                <label for="display_name">权限组名称:</label>
+                                <input type="text" class="form-control"  name="display_name" id="display_name" placeholder="权限组名称&hellip;">
                             </div>
 
                             <div class="form-group">
-                                <label for="password-1">密码:</label>
-                                <input type="password" class="form-control" name="password" id="password-1" placeholder="Enter your password">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="password-2">状态:</label>
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="1" checked>
-                                启用&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="0">
-                                关闭
+                                <label for="name">标识:</label>
+                                <input type="text" class="form-control"  name="name" id="name" placeholder="标识&hellip;">
                             </div>
 
                             <div class="form-group">
-                                <label for="password-3">是否为超级管理员:</label>
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="1" >
-                                是&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="0" checked>
-                                否
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password-3">所属角色组:</label>
-                                    {{--<input type="checkbox" class="cbr" >
-                                    超级管理员
-                                &nbsp;
-                                    <input type="checkbox" class="cbr" >
-                                    管理员--}}
-                                @inject('rolePresenter','App\Presenters\RolePresenter')
-
-                                {!! $rolePresenter->rolesCheckbox() !!}
+                                <label for="description">说明(描述):</label>
+                                <input type="text" class="form-control" name="description" id="description" placeholder="说明(描述)">
                             </div>
                             {{csrf_field()}}
                             <div class="form-group">
@@ -109,7 +85,10 @@
                 </div>
             </div>
         </div>
-    @endsection
+       {{-- <div class="row">
+
+        </div>--}}
+       @endsection
 
        @section('footer')
                <!-- Main Footer -->
@@ -239,16 +218,16 @@
                     name: {
                         required: true
                     },
-                    password: {
+                    display_name: {
                         required: true
                     }
                 },
                 messages: {
                     name: {
-                        required: 'Please enter your username.'
+                        required: '请输入标识.'
                     },
-                    password: {
-                        required: 'Please enter your password.'
+                    display_name: {
+                        required: '请输入权限名.'
                     }
                 },
                 // Form Processing via AJAX
@@ -269,13 +248,8 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     };
-                    var id_array=new Array();
-                    $('input[name="roles"]:checked').each(function(){
-                        id_array.push($(this).val());//向数组中添加元素
-                    });
-                    var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串
                     $.ajax({
-                        url: "{{route('admin_reg')}}",
+                        url: "{{route('roleadd')}}",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
@@ -283,10 +257,8 @@
                         },
                         data: {
                             name: $(form).find('#name').val(),
-                            password: $(form).find('#password-1').val(),
-                            status: $("input[name='status']:checked").val(),
-                            is_super:$("input[name='is_super']:checked").val(),
-                            roles:id_array
+                            description: $(form).find('#description').val(),
+                            display_name: $(form).find('#display_name').val(),
                         },
                         success: function(resp)
                         {
@@ -300,7 +272,7 @@
                                             content: '操作提示!',
                                             contentDetail: '添加成功',
                                             okFn: function() {
-                                                window.location.href = '/admin/administrator';
+                                                window.location.href = '/admin/admin_auth_role/add';
                                             }
                                         });
                                     }else{

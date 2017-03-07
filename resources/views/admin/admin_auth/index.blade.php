@@ -4,131 +4,135 @@
 			<div class="page-title">
 				
 				<div class="title-env">
-					<h1 class="title">权限菜单列表</h1>
-					{{--<p class="description">Drag to move and sort lists between groups</p>--}}
+					<h1 class="title">管理员列表</h1>
+
 				</div>
 				
 					<div class="breadcrumb-env">
-						<ol class="breadcrumb bc-1">
-							<li>
-							     <a href="dashboard-1.html"><i class="fa-home"></i>后台</a>
-						    </li>
-							<li>
-						         <a href="extra-gallery.html">权限</a>
-							</li>
+					
+								<ol class="breadcrumb bc-1">
+									<li>
+							<a href="dashboard-1.html"><i class="fa-home"></i>后台</a>
+						</li>
+								<li>
+										<a href="tables-basic.html">权限</a>
+								</li>
 							<li class="active">
-						         <strong>权限菜单列表</strong>
+										<strong>管理员列表</strong>
 							</li>
-						</ol>
+								</ol>
 				</div>
 					
-			</div>		
+			</div>
+			
+			<!-- Basic Setup -->
+
 			<div class="panel panel-default">
-				<div class="panel-heading">菜单</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">管理员列表</h3>
+					
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">&ndash;</span>
+							<span class="expand-icon">+</span>
+						</a>
+						<a href="#" data-toggle="remove">
+							&times;
+						</a>
+					</div>
+				</div>
 				<div class="panel-body">
 					
-					<div class="row">
-						<div class="col-sm-8">
+					<script type="text/javascript">
+					jQuery(document).ready(function($)
+					{
+						$("#example-2").dataTable({
+							dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+							aoColumns: [
+								{bSortable: false},
+								null,
+								null,
+								null,
+								null,
+								null
+							],
+						});
+						
+						// Replace checkboxes when they appear
+						var $state = $("#example-2 thead input[type='checkbox']");
+						
+						$("#example-2").on('draw.dt', function()
+						{
+							cbr_replace();
+							
+							$state.trigger('change');
+						});
+						
+						// Script to select all checkboxes
+						$state.on('change', function(ev)
+						{
+							var $chcks = $("#example-2 tbody input[type='checkbox']");
+							
+							if($state.is(':checked'))
+							{
+								$chcks.prop('checked', true).trigger('change');
+							}
+							else
+							{
+								$chcks.prop('checked', false).trigger('change');
+							}
+						});
+					});
+					</script>
 					
-							<script type="text/javascript">
-								jQuery(document).ready(function($)
-								{
-									$("#nestable-list-1").on('nestable-stop', function(ev)
-									{
-										var serialized = $(this).data('nestable').serialize(),
-											str = '';
-										//console.log( $(this).data('nestable').list() );
-										str = iterateList(serialized, 0);
-										//iterateList(serialized);
-										$("#nestable-list-1-ev").val(str);
-									});
-								});
-								
-								function iterateList(items, depth)
-								{
-									var str = '';
+					<table class="table table-bordered table-striped" id="example-2">
+						<thead>
+							<tr>
+								<th class="no-sorting">
+									<input type="checkbox" class="cbr">
+								</th>
+								<th>ID</th>
+								<th>管理员名称</th>
+								<th>创建时间</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						
+						<tbody class="middle-align">
+						@foreach($admin_list as $v)
+							<tr>
+								<td>
+									<input type="checkbox" class="cbr">
+								</td>
+								<td>{{$v->id}}</td>
+								<td>{{$v->name}}</td>
+								<td>{{$v->created_at}}</td>
+								<td><a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
+										启用
+									</a></td>
+								<td>
+									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
+										修改
+									</a>
 									
-									if( ! depth)
-										depth = 0;
-									
-									console.log(items);
-									
-									jQuery.each(items, function(i, obj)
-									{
-										str += '[ID: ' + obj.itemId + ']\t' + repeat('—', depth+1) + ' ' + obj.item;
-										str += '\n';
-										
-										if(obj.children)
-										{
-											str += iterateList(obj.children, depth+1);
-										}
-									});
-									
-									return str;
-								}
-								
-								function repeat(s, n)
-								{
-									var a = [];
-									while(a.length < n)
-									{
-										a.push(s);
-									}
-									return a.join('');
-								}
-								
-							</script>
-							<ul id="nestable-list-1" class="uk-nestable" data-uk-nestable>
+									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+										删除
+									</a>
+								</td>
 
-								@foreach($permissions as $v)
-								<li data-item="Item 2" data-item-id="b">
-									<div class="uk-nestable-item">
-									    <div class="uk-nestable-handle"></div>
-									    <div data-nestable-action="toggle"></div>
-									    <div class="list-label">{{$v->display_name}}</div>
-									</div>
-									@if(count($v['child'])>0)
-									<ul>
-										@foreach($v['child'] as $v2)
-										<li data-item="Item 7" data-item-id="g">
-											<div class="uk-nestable-item">
-											    <div class="uk-nestable-handle"></div>
-											    <div data-nestable-action="toggle"></div>
-												<div class="list-label">{{ $v2->display_name }}</div>
-											</div>
-											@if(count($v2['child'])>0)
-												<ul>
-													@foreach($v2['child'] as $v3)
-													<li data-item="Item 8" data-item-id="h">
-														<div class="uk-nestable-item">
-															<div class="uk-nestable-handle"></div>
-															<div data-nestable-action="toggle"></div>
-															<div class="list-label">{{ $v3->display_name }}</div>
-														</div>
-													</li>
-													@endforeach
-										        </ul>
-											@endif
-										</li>
-										@endforeach
-									</ul>
-									@endif
-								</li>
-								@endforeach
-							</ul>
-						</div>
-						<div class="col-sm-4">
-							<textarea id="nestable-list-1-ev" class="form-control" rows="17" placeholder="Nestable Events"></textarea>
-						</div>
-					</div>
+							</tr>
+						@endforeach
+						</tbody>
+					</table>
 					
 				</div>
 			</div>
+			
 @endsection
 
 
 @section('footer')
-			<!-- Main Footer -->
 			<!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
 			<!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
 			<!-- Or class "fixed" to  always fix the footer to the end of page -->
@@ -290,23 +294,18 @@
 
 
 
-
-
-
-
-
 @section('mycss')
 	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ asset('assets/js/uikit/uikit.css')}}">
+	<link rel="stylesheet" href="{{ asset('assets/js/datatables/dataTables.bootstrap.css')}}">
 @endsection
 
 
 @section('myjs')
+		<script src="{{ asset('assets/js/datatables/js/jquery.dataTables.min.js')}}"></script>
 	<!-- Imported scripts on this page -->
-	<script src="{{ asset('assets/js/uikit/js/uikit.min.js')}}"></script>
-	<script src="{{ asset('assets/js/uikit/js/addons/nestable.min.js')}}"></script>
+	<script src="{{ asset('assets/js/datatables/dataTables.bootstrap.js')}}"></script>
+	<script src="{{ asset('assets/js/datatables/yadcf/jquery.dataTables.yadcf.js')}}"></script>
+	<script src="{{ asset('assets/js/datatables/tabletools/dataTables.tableTools.min.js')}}"></script>
 @endsection
-
-
 
 

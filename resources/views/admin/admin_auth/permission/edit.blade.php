@@ -11,7 +11,7 @@
     <div class="page-title">
 
             <div class="title-env">
-                <h1 class="title">管理员列表</h1>
+                <h1 class="title">修改权限组(角色)</h1>
                 {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
             </div>
 
@@ -27,7 +27,7 @@
                     </li>
                     <li class="active">
 
-                        <strong>管理员列表</strong>
+                        <strong>修改权限组</strong>
                     </li>
                 </ol>
 
@@ -44,7 +44,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">添加管理员</h3>
+                        <h3 class="panel-title">修改权限组</h3>
                         <div class="panel-options">
                             <a href="#" data-toggle="panel">
                                 <span class="collapse-icon">&ndash;</span>
@@ -60,47 +60,66 @@
                         <form role="form" id="reg">
 
                             <div class="form-group">
-                                <label for="email-1">管理员账号:</label>
-                                <input type="text" class="form-control"  name="name" id="name" placeholder="Enter your email&hellip;">
+                                <label for="display_name">权限组名称:</label>
+                                <input type="text" class="form-control"  name="display_name" id="display_name" value="{{$role->display_name}}">
                             </div>
 
                             <div class="form-group">
-                                <label for="password-1">密码:</label>
-                                <input type="password" class="form-control" name="password" id="password-1" placeholder="Enter your password">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="password-2">状态:</label>
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="1" checked>
-                                启用&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="0">
-                                关闭
+                                <label for="name">标识:</label>
+                                <input type="text" class="form-control"  name="name" id="name" value="{{$role->name}}">
                             </div>
 
                             <div class="form-group">
-                                <label for="password-3">是否为超级管理员:</label>
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="1" >
-                                是&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="0" checked>
-                                否
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password-3">所属角色组:</label>
-                                    {{--<input type="checkbox" class="cbr" >
-                                    超级管理员
-                                &nbsp;
-                                    <input type="checkbox" class="cbr" >
-                                    管理员--}}
-                                @inject('rolePresenter','App\Presenters\RolePresenter')
-
-                                {!! $rolePresenter->rolesCheckbox() !!}
+                                <label for="description">说明(描述):</label>
+                                <input type="text" class="form-control" name="description" id="description" value="{{$role->description}}">
                             </div>
                             {{csrf_field()}}
+
+
+
+
+                            <div class="panel-body panel-body-nopadding">
+                                @foreach($permissions as $permission)
+                                    <div class="top-permission col-md-12">
+                                        <a href="javascript:;" class="display-sub-permission-toggle">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </a>
+                                        @if(in_array($permission['id'],array_keys($rolePermissions)))
+                                            <input type="checkbox" name="permissions" value="{{ $permission['id'] }}"
+                                                   class="top-permission-checkbox" checked/>
+                                        @else
+                                            <input type="checkbox" name="permissions" value="{{ $permission['id'] }}"
+                                                   class="top-permission-checkbox"/>
+                                        @endif
+                                        <label><h5>&nbsp;{{ $permission['display_name'] }}</h5></label>
+                                    </div>
+                                    @if(count($permission['subPermission']))
+                                        <div class="sub-permissions col-md-11 col-md-offset-1" style="margin-left:3%">
+                                            @foreach($permission['subPermission'] as $sub)
+                                                <div class="col-sm-3">
+                                                    @if($sub['is_menu'])
+                                                        <label><input type="checkbox" name="permissions"
+                                                                      value="{{ $sub['id'] }}"
+                                                                      class="sub-permission-checkbox" {{ in_array($sub['id'],array_keys($rolePermissions)) ? 'checked':'' }}/>&nbsp;{{ $sub['display_name'] }}
+                                                        </label>
+                                                    @else
+                                                        <label><input type="checkbox" name="permissions"
+                                                                      value="{{ $sub['id'] }}"
+                                                                      class="sub-permission-checkbox" {{ in_array($sub['id'],array_keys($rolePermissions)) ? 'checked':'' }}/>&nbsp;{{ $sub['display_name'] }}
+                                                        </label>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+
+
+
                             <div class="form-group">
                                 {{--<button type="submit" class="btn btn-gray btn-single">添加</button>--}}
-                                <button type="submit" class="btn btn-info btn-single pull-right">添加</button>
+                                <button type="submit" class="btn btn-info btn-single pull-right">修改</button>
                             </div>
 
                         </form>
@@ -109,7 +128,10 @@
                 </div>
             </div>
         </div>
-    @endsection
+       {{-- <div class="row">
+
+        </div>--}}
+       @endsection
 
        @section('footer')
                <!-- Main Footer -->
@@ -143,92 +165,29 @@
         @endsection
 
         @section('chat')
-    <!-- start: Chat Section -->
-    <div id="chat" class="fixed">
 
-        <div class="chat-inner">
-
-
-            <h2 class="chat-header">
-                <a href="#" class="chat-close" data-toggle="chat">
-                    <i class="fa-plus-circle rotate-45deg"></i>
-                </a>
-
-                Chat
-                <span class="badge badge-success is-hidden">0</span>
-            </h2>
-
-            <script type="text/javascript">
-                // Here is just a sample how to open chat conversation box
-                jQuery(document).ready(function($)
-                {
-                    var $chat_conversation = $(".chat-conversation");
-
-                    $(".chat-group a").on('click', function(ev)
-                    {
-                        ev.preventDefault();
-
-                        $chat_conversation.toggleClass('is-open');
-
-                        $(".chat-conversation textarea").trigger('autosize.resize').focus();
-                    });
-
-                    $(".conversation-close").on('click', function(ev)
-                    {
-                        ev.preventDefault();
-                        $chat_conversation.removeClass('is-open');
-                    });
-                });
-            </script>
-
-        </div>
-
-        <!-- conversation template -->
-        <div class="chat-conversation">
-
-            <div class="conversation-header">
-                <a href="#" class="conversation-close">
-                    &times;
-                </a>
-
-                <span class="user-status is-online"></span>
-                <span class="display-name">Arlind Nushi</span>
-                <small>Online</small>
-            </div>
-
-            <ul class="conversation-body">
-                <li>
-                    <span class="user">Arlind Nushi</span>
-                    <span class="time">09:00</span>
-                    <p>Are you here?</p>
-                </li>
-                <li class="odd">
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:25</span>
-                    <p>This message is pre-queued.</p>
-                </li>
-                <li>
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:26</span>
-                    <p>Whohoo!</p>
-                </li>
-                <li class="odd">
-                    <span class="user">Arlind Nushi</span>
-                    <span class="time">09:27</span>
-                    <p>Do you like it?</p>
-                </li>
-            </ul>
-
-            <div class="chat-textarea">
-                <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
-            </div>
-
-        </div>
-
-    </div>
     <!-- end: Chat Section -->
 
     <script type="text/javascript">
+
+        $(".display-sub-permission-toggle").toggle(function () {
+            $(this).children('span').removeClass('glyphicon-minus').addClass('glyphicon-plus')
+                    .parents('.top-permission').next('.sub-permissions').hide();
+        }, function () {
+            $(this).children('span').removeClass('glyphicon-plus').addClass('glyphicon-minus')
+                    .parents('.top-permission').next('.sub-permissions').show();
+        });
+
+        $(".top-permission-checkbox").change(function () {
+            $(this).parents('.top-permission').next('.sub-permissions').find('input').prop('checked', $(this).prop('checked'));
+        });
+
+        $(".sub-permission-checkbox").change(function () {
+            if ($(this).prop('checked')) {
+                $(this).parents('.sub-permissions').prev('.top-permission').find('.top-permission-checkbox').prop('checked', true);
+            }
+        });
+
         jQuery(document).ready(function($)
         {
             // Reveal Login form
@@ -239,16 +198,16 @@
                     name: {
                         required: true
                     },
-                    password: {
+                    display_name: {
                         required: true
                     }
                 },
                 messages: {
                     name: {
-                        required: 'Please enter your username.'
+                        required: '请输入标识.'
                     },
-                    password: {
-                        required: 'Please enter your password.'
+                    display_name: {
+                        required: '请输入权限名.'
                     }
                 },
                 // Form Processing via AJAX
@@ -270,12 +229,12 @@
                         "hideMethod": "fadeOut"
                     };
                     var id_array=new Array();
-                    $('input[name="roles"]:checked').each(function(){
+                    $('input[name="permissions"]:checked').each(function(){
                         id_array.push($(this).val());//向数组中添加元素
                     });
-                    var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串
+                    alert(id_array);
                     $.ajax({
-                        url: "{{route('admin_reg')}}",
+                        url: "{{route('permissionsrole')}}",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
@@ -283,10 +242,8 @@
                         },
                         data: {
                             name: $(form).find('#name').val(),
-                            password: $(form).find('#password-1').val(),
-                            status: $("input[name='status']:checked").val(),
-                            is_super:$("input[name='is_super']:checked").val(),
-                            roles:id_array
+                            description: $(form).find('#description').val(),
+                            display_name: $(form).find('#display_name').val(),
                         },
                         success: function(resp)
                         {
@@ -300,7 +257,7 @@
                                             content: '操作提示!',
                                             contentDetail: '添加成功',
                                             okFn: function() {
-                                                window.location.href = '/admin/administrator';
+                                                window.location.href = '/admin/admin_auth_role/add';
                                             }
                                         });
                                     }else{

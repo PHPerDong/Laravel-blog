@@ -289,13 +289,19 @@
                         <li>
                             <a href="/admin/administrator">
                                 <i class="entypo-flow-line"></i>
-                                <span class="title">管理员</span>
+                                <span class="title">添加管理员</span>
                             </a>
                         </li>
                         <li>
                             <a href="/admin/admin_auth_role">
                                 <i class="entypo-flow-line"></i>
-                                <span class="title">角色</span>
+                                <span class="title">权限组(角色)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/admin_auth_role/add">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">添加权限组(角色)</span>
                             </a>
                         </li>
                         <li>
@@ -305,9 +311,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/admin_auth_permission">
+                            <a href="/admin/administrator_list">
                                 <i class="entypo-flow-line"></i>
-                                <span class="title">权限组</span>
+                                <span class="title">管理员列表</span>
                             </a>
                         </li>
                         <li>

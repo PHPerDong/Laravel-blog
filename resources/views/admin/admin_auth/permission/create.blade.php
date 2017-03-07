@@ -11,7 +11,7 @@
     <div class="page-title">
 
             <div class="title-env">
-                <h1 class="title">添加权限</h1>
+                <h1 class="title">添加菜单</h1>
                 {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
             </div>
 
@@ -23,11 +23,11 @@
                     </li>
                     <li>
 
-                        <a href="forms-native.html">权限</a>
+                        <a href="forms-native.html">菜单</a>
                     </li>
                     <li class="active">
 
-                        <strong>添加权限</strong>
+                        <strong>添加菜单</strong>
                     </li>
                 </ol>
 
@@ -44,7 +44,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">添加权限</h3>
+                        <h3 class="panel-title">添加菜单</h3>
                         <div class="panel-options">
                             <a href="#" data-toggle="panel">
                                 <span class="collapse-icon">&ndash;</span>
@@ -81,7 +81,7 @@
 
 
                             <div class="form-group">
-                                <label class="control-label">所属权限组</label>
+                                <label class="control-label">所属上级菜单</label>
 
                                 <script type="text/javascript">
                                     jQuery(document).ready(function($)

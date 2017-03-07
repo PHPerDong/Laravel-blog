@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AdminUserRepository;
-use App\Models\AdminUser;
+use App\Model\Admin;
 
 /**
  * Class AdminUserRepositoryEloquent
@@ -20,7 +20,7 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
      */
     public function model()
     {
-        return AdminUser::class;
+        return Admin::class;
     }
 
     /**
@@ -40,9 +40,10 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
     {
         $id = $this->model->insertGetId([
             'name' => $payload['name'],
-            'email' => $payload['email'],
+            //'email' => $payload['email'],
             'password' => bcrypt($payload['password']),
-            'is_super' => $payload['is_super']
+            'is_super' => $payload['is_super'],
+            'status'   => $payload['status']
         ]);
 
         if(!$id) {
@@ -84,7 +85,7 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
             $data['password'] = bcrypt($attributes['password']);
         }
         $data['name'] = $attributes['name'];
-        $data['email'] = $attributes['email'];
+        //$data['email'] = $attributes['email'];
         $data['is_super'] = $attributes['is_super'];
         $result = parent::update($data, $id);
         if(!$result) {
