@@ -108,19 +108,25 @@
 								<td>{{$v->id}}</td>
 								<td>{{$v->name}}</td>
 								<td>{{$v->created_at}}</td>
-								<td><a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-										启用
-									</a></td>
 								<td>
+									@if($v->status == 1)
 									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
+										启用
+									</a>
+									@else
+									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+										禁用
+									</a>
+									@endif
+								</td>
+								<td>
+									<a href="{{route('administrator_edit',['id'=>$v->id])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
 										修改
 									</a>
-									
 									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
 										删除
 									</a>
 								</td>
-
 							</tr>
 						@endforeach
 						</tbody>
@@ -128,7 +134,6 @@
 					
 				</div>
 			</div>
-			
 @endsection
 
 

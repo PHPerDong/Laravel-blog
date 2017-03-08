@@ -93,9 +93,9 @@
                                         @endif
                                         <label><h5>&nbsp;{{ $permission['display_name'] }}</h5></label>
                                     </div>
-                                    @if(count($permission['subPermission']))
-                                        <div class="sub-permissions col-md-11 col-md-offset-1" style="margin-left:3%">
-                                            @foreach($permission['subPermission'] as $sub)
+                                    @if(count($permission['child']))
+                                        <div class="sub-permissions col-md-11 col-md-offset-1" style="margin-left:2%">
+                                            @foreach($permission['child'] as $sub)
                                                 <div class="col-sm-3">
                                                     @if($sub['is_menu'])
                                                         <label><input type="checkbox" name="permissions"
@@ -109,6 +109,23 @@
                                                         </label>
                                                     @endif
                                                 </div>
+                                                @if(count($sub['child']))
+                                                    @foreach($sub['child'] as $subs)
+                                                    <div class="col-sm-11" style="margin-left:5%">
+                                                        @if($subs['is_menu'])
+                                                            <label><input type="checkbox" name="permissions"
+                                                                          value="{{ $subs['id'] }}"
+                                                                          class="sub-permission-checkbox" {{ in_array($subs['id'],array_keys($rolePermissions)) ? 'checked':'' }}/>&nbsp;{{ $subs['display_name'] }}
+                                                            </label>
+                                                        @else
+                                                            <label><input type="checkbox" name="permissions"
+                                                                          value="{{ $subs['id'] }}"
+                                                                          class="sub-permission-checkbox" {{ in_array($subs['id'],array_keys($rolePermissions)) ? 'checked':'' }}/>&nbsp;{{ $subs['display_name'] }}
+                                                            </label>
+                                                        @endif
+                                                    @endforeach
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     @endif
@@ -232,9 +249,8 @@
                     $('input[name="permissions"]:checked').each(function(){
                         id_array.push($(this).val());//向数组中添加元素
                     });
-                    alert(id_array);
                     $.ajax({
-                        url: "{{route('permissionsrole')}}",
+                        url: "{{route('permissionsrole',['id'=>$role->id])}}",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
@@ -244,6 +260,7 @@
                             name: $(form).find('#name').val(),
                             description: $(form).find('#description').val(),
                             display_name: $(form).find('#display_name').val(),
+                            permissions:id_array
                         },
                         success: function(resp)
                         {
@@ -251,17 +268,17 @@
                                 delay: .5,
                                 pct: 100,
                                 finish: function(){
-                                    if(resp.accessGranted)
+                                    if(resp.status)
                                     {
                                         zeroModal.success({
                                             content: '操作提示!',
-                                            contentDetail: '添加成功',
+                                            contentDetail: '修改成功',
                                             okFn: function() {
-                                                window.location.href = '/admin/admin_auth_role/add';
+                                                window.location.href = '/admin/admin_auth_role';
                                             }
                                         });
                                     }else{
-                                        zeroModal.error('添加失败!');
+                                        zeroModal.error('修改失败!');
                                     }
                                 }
                             });

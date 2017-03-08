@@ -5,48 +5,34 @@
     </a>
 
     <div class="settings-pane-inner">
-
         <div class="row">
-
             <div class="col-md-4">
-
                 <div class="user-info">
-
                     <div class="user-image">
                         <a href="extra-profile.html">
                             <img src="assets/images/user-2.png" class="img-responsive img-circle" />
                         </a>
                     </div>
-
                     <div class="user-details">
-
                         <h3>
                             <a href="extra-profile.html">John Smith</a>
-
                             <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
                             <span class="user-status is-online"></span>
                         </h3>
-
                         <p class="user-title">Web Developer</p>
 
                         <div class="user-links">
                             <a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
                             <a href="extra-profile.html" class="btn btn-success">Upgrade</a>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
             <div class="col-md-8 link-blocks-env">
-
                 <div class="links-block left-sep">
                     <h4>
                         <span>Notifications</span>
                     </h4>
-
                     <ul class="list-unstyled">
                         <li>
                             <input type="checkbox" class="cbr cbr-primary" checked="checked" id="sp-chk1" />
@@ -55,7 +41,6 @@
 
                     </ul>
                 </div>
-
                 <div class="links-block left-sep">
                     <h4>
                         <a href="#">
@@ -70,17 +55,11 @@
                                 Support Center
                             </a>
                         </li>
-
-
                     </ul>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -132,65 +111,6 @@
             <ul id="main-menu" class="main-menu">
                 <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                 <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                <li>
-                    <a href="dashboard-1.html">
-                        <i class="fa-gears"></i>
-                        <span class="title">网站管理</span>
-                    </a>
-                    <ul>
-
-                        <li>
-                            <a href="skin-generator.html">
-                                <span class="title">Skin Generator</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="layout-variants.html">
-                        <i class="linecons-desktop"></i>
-                        <span class="title">Layouts</span>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="layout-variants.html">
-                                <span class="title">Layout Variants &amp; API</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="layout-boxed.html">
-                                <span class="title">Boxed Layout</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="layout-boxed-horizontal-menu.html">
-                                <span class="title">Boxed &amp; Horizontal Menu</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="ui-panels.html">
-                        <i class="linecons-note"></i>
-                        <span class="title">UI Elements</span>
-                    </a>
-                    <ul>
-
-                        <li>
-                            <a href="ui-typography.html">
-                                <span class="title">Typography</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ui-other-elements.html">
-                                <span class="title">Other Elements</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
 
                 <li>
                     <a href="extra-gallery.html">
@@ -255,28 +175,6 @@
                                         <i class="entypo-flow-parallel"></i>
                                         <span class="title">Menu Level 2.2</span>
                                     </a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                <i class="entypo-flow-cascade"></i>
-                                                <span class="title">Menu Level 3.1</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="entypo-flow-cascade"></i>
-                                                <span class="title">Menu Level 3.2</span>
-                                            </a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="entypo-flow-branch"></i>
-                                                        <span class="title">Menu Level 4.1</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <li>
                                     <a href="#">

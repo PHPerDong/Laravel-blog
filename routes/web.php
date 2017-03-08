@@ -19,7 +19,8 @@ Route::group(['namespace' => 'Home'],function(){
 //后端路由
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::any('login','LoginController@login')->name('admin_login');
-    Route::group(['middleware'=>['auth.admin']],function(){
+    Route::get('errors/403','LoginController@errors');
+    Route::group(['middleware'=>['auth.admin','web']],function(){
         Route::get('admin', 'IndexController@index');
         Route::post('admin_reg', 'AdminController@store')->name('admin_reg');
         Route::get('logout', 'LoginController@logout');
@@ -30,7 +31,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::any('admin_auth_role/add','AdminPermissionController@roleAdd')->name('roleadd');
         //修改权限组权限
         Route::any('admin_auth_role/edit/{id}','AdminPermissionController@permissions')->name('role_edit');
-        Route::post('permissionsrole/edit','AdminPermissionController@storePermissions')->name('permissionsrole');
+        Route::post('permissionsrole/edit/{id}','AdminPermissionController@storePermissions')->name('permissionsrole');
         //添加权限
         Route::get('admin_auth_permission/add','AdminPermissionController@addMenu');
         Route::post('add_menu','AdminPermissionController@store')->name('store');
@@ -39,6 +40,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         //管理员列表
         Route::get('administrator_list','AdminController@index');
         Route::get('administrator', 'AdminController@addAdministrator');
+        //修改管理员
+        Route::get('administrator/edit/{id}','AdminController@edit')->name('administrator_edit');
+        Route::post('update/{id}','AdminController@editAdministrator')->name('administrator_update');
     });
 
 });

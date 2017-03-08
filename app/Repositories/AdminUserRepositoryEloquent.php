@@ -43,7 +43,9 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
             //'email' => $payload['email'],
             'password' => bcrypt($payload['password']),
             'is_super' => $payload['is_super'],
-            'status'   => $payload['status']
+            'status'   => $payload['status'],
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         if(!$id) {
@@ -72,20 +74,20 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
             ];
         }
 
-        $isAble = $this->model->where('id', '<>', $id)->where('email', $attributes['email'])->count();
+        /*$isAble = $this->model->where('id', '<>', $id)->where('email', $attributes['email'])->count();
         if($isAble) {
             return [
                 'status' => false,
                 'msg' => '邮箱已被使用'
             ];
-        }
+        }*/
 
         $data = [];
         if($attributes['password']) {
             $data['password'] = bcrypt($attributes['password']);
         }
         $data['name'] = $attributes['name'];
-        //$data['email'] = $attributes['email'];
+        $data['status'] = $attributes['status'];
         $data['is_super'] = $attributes['is_super'];
         $result = parent::update($data, $id);
         if(!$result) {

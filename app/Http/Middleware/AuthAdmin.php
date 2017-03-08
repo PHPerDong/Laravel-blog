@@ -3,25 +3,41 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Zizaco\Entrust\EntrustFacade as Entrust;
+use Route,URL,Auth;
 
 class AuthAdmin
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param  string|null $guard
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
-        if(auth()->guard('admin')->guest()){
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
+        //dump(1);
+
+        if(Auth::guard('admin')->user()->is_super){
+            return $next($request);
+        }
+        //dd(Auth::guard('admin')->user());
+
+        $previousUrl = URL::previous();
+        if(!Auth::guard('admin')->user()->can(Route::currentRouteName())) {
+            if($request->ajax() && ($request->getMethod() != 'GET')) {
+                return response()->json([
+                    'status' => -1,
+                    'code' => 403,
+                    'msg' => '您没有权限执行此操作'
+                ]);
             } else {
-                return redirect()->guest('admin/login');
+                return view('admin.errors.403', compact('previousUrl'));
             }
         }
+
         return $next($request);
     }
 }

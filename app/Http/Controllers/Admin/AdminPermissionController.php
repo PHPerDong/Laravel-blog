@@ -21,7 +21,7 @@ class AdminPermissionController extends BaseController
 
     public function __construct(RoleRepositoryEloquent $role, PermissionRepositoryEloquent $permission){
 
-        //parent::__construct();
+        parent::__construct();
         $this->role = $role;
         $this->permission = $permission;
     }
@@ -45,12 +45,14 @@ class AdminPermissionController extends BaseController
         $role = $this->role->find($id);
         $permission = $this->permission->topPermissions();
         $permissions = self::recursion_children($permission);
+        //dd($permissions);
         $rolePermissions = $this->role->rolePermissions($id);
         return view('admin.admin_auth.permission.edit',compact('role','permissions','rolePermissions'));
     }
     //修改权限组权限
     public function storePermissions($id, Request $request)
     {
+        //dd($request->input('permissions', []));
         $result = $this->role->savePermissions($id, $request->input('permissions', []));
         return response()->json($result ? ['status' => 1] : ['status' => 0]);
     }

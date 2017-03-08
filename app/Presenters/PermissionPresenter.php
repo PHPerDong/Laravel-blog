@@ -87,14 +87,13 @@ class PermissionPresenter extends FractalPresenter
      */
     public function menus()
     {
-        $menus = $this->permission->menus();
+        return $menus = $this->permission->menus();
         $html = '';
         if($menus) {
-
             foreach ($menus as $menu) {
-                if(($menu['name'] !== '#') && !Route::has($menu['name'])) {
+                /*if(($menu['name'] !== '#') && !Route::has($menu['name'])) {
                     continue;
-                }
+                }*/
 
                 $class = '';
                 if(isset($menu['sub'])) {
@@ -135,6 +134,7 @@ class PermissionPresenter extends FractalPresenter
                 }
                 $html .= '</ul>';
                 $html .= '</li>';
+
 
             }
         }

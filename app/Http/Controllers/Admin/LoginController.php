@@ -29,6 +29,10 @@ class LoginController extends Controller
         return redirect()->to('/admin/login');
     }
 
+    public function errors(){
+        return view('admin.errors.403');
+    }
+
 
 
 }
