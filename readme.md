@@ -1,4 +1,4 @@
-# Larval 5.2 Rbac 后台实例
+# Larval 5.4 Rbac 后台实例
 
 ## 说明
 
@@ -7,7 +7,7 @@
 ###### 本项目建议只用来做参考
 
 ## 截图
-![image](http://github.com/PHPerDong/Laravel-blog/raw/master/public/img/1489129776(1).jpg)
+![image](http://github.com/PHPerDong/Laravel-blog/raw/master/img/1489129776(1).jpg)
 
 
 
