@@ -7,7 +7,7 @@
 ###### 本项目建议只用来做参考
 
 ## 截图
-![image](http://github.com/PHPerDong/Laravel-blog/raw/master/img/1489129776(1).jpg)
+![image](https://github.com/PHPerDong/Laravel-blog/blob/master/public/img/1489131264(1).jpg)
 
 
 
