@@ -17,6 +17,7 @@ class BaseController extends Controller
 
       public function __construct()
       {
+            //dump(2);
             //$this->middleware('auth.admin');
             //dump('adfasdf');
             $this->admin = Auth::guard('admin')->user();

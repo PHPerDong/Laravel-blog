@@ -18,14 +18,13 @@ class AuthAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        //dump(1);
-
+        //return $next($request);
         if(Auth::guard('admin')->user()->is_super){
             return $next($request);
         }
-        //dd(Auth::guard('admin')->user());
 
         $previousUrl = URL::previous();
+        //dd(Route::currentRouteName());
         if(!Auth::guard('admin')->user()->can(Route::currentRouteName())) {
             if($request->ajax() && ($request->getMethod() != 'GET')) {
                 return response()->json([
@@ -34,7 +33,8 @@ class AuthAdmin
                     'msg' => '您没有权限执行此操作'
                 ]);
             } else {
-                return view('admin.errors.403', compact('previousUrl'));
+
+                return response()->view('admin.errors.403', compact('previousUrl'));
             }
         }
 
