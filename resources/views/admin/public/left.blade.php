@@ -10,20 +10,20 @@
                 <div class="user-info">
                     <div class="user-image">
                         <a href="extra-profile.html">
-                            <img src="assets/images/user-2.png" class="img-responsive img-circle" />
+                            <img src="{{ asset('assets/images/user-2.png')}}" class="img-responsive img-circle" />
                         </a>
                     </div>
                     <div class="user-details">
                         <h3>
-                            <a href="extra-profile.html">John Smith</a>
-                            <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
                             <span class="user-status is-online"></span>
+                            <a href="extra-profile.html"><?php echo Auth::guard('admin')->user()->name?></a>
+                            <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
+
                         </h3>
-                        <p class="user-title">Web Developer</p>
+                        <p class="user-title">管理员</p>
 
                         <div class="user-links">
-                            <a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
-                            <a href="extra-profile.html" class="btn btn-success">Upgrade</a>
+                            <a href="extra-profile.html" class="btn btn-success">密码修改</a>
                         </div>
                     </div>
                 </div>
@@ -75,12 +75,12 @@
 
                 <!-- logo -->
                 <div class="logo">
-                    <a href="dashboard-1.html" class="logo-expanded">
-                        <img src="assets/images/logo@2x.png" width="80" alt="" />
+                    <a href="dashboard-1.html" class="logo-expanded" style="color: #f1f1f1;font-size: 30px">
+                        后台管理
                     </a>
 
                     <a href="dashboard-1.html" class="logo-collapsed">
-                        <img src="assets/images/logo-collapsed@2x.png" width="40" alt="" />
+                        <img src="{{ asset('assets/images/user-2.png')}}" width="40" alt="" />
                     </a>
                 </div>
 

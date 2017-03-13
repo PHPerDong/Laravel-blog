@@ -11,13 +11,13 @@
 |
 */
 //前端路由
-Route::group(['namespace' => 'Home'],function(){
+Route::group(['namespace' => 'Home','domain'=>env('FRONT_DOMAIN')],function(){
     Route::get('/', 'IndexController@index');
 });
 
 
 //后端路由
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_DOMAIN')],function(){
     Route::any('login','LoginController@login')->name('admin_login');
     Route::get('errors/403','LoginController@errors');
     Route::get('logout', 'LoginController@logout');

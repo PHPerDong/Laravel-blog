@@ -33,7 +33,6 @@ class AuthAdmin
                     'msg' => '您没有权限执行此操作'
                 ]);
             } else {
-
                 return response()->view('admin.errors.403', compact('previousUrl'));
             }
         }
