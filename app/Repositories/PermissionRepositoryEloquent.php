@@ -96,7 +96,6 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         $father = $this->model->where('fid', 0)->where('is_menu', 1)->orderBy('sort', 'asc')->orderBy('id', 'asc')->get()->toArray();
         if($father) {
             foreach ($father as $item) {
-
                 if($item['sub_permission']) {
                     foreach ($item['sub_permission'] as $key => $sub) {
                         if($sub['is_menu']) {
@@ -105,11 +104,9 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
                     }
                     unset($item['sub_permission']);
                 }
-
                 $menus[] = $item;
             }
         }
-
         return $menus;
     }
 

@@ -72,17 +72,17 @@
 
                             <div class="form-group">
                                 <label for="password-2">状态:</label>
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="1" @if($admin_user->status==1) checked @endif>
+                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="0" @if($admin_user->status==1) checked @endif>
                                 启用&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="status" id="status" class="cbr cbr-primary" value="0" @if($admin_user->status==0) checked @endif>
+                                <input type="radio" name="status"  class="cbr cbr-primary" value="1" @if($admin_user->status==0) checked @endif>
                                 关闭
                             </div>
 
                             <div class="form-group">
                                 <label for="password-3">是否为超级管理员:</label>
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="1" @if($admin_user->is_super==1) checked @endif>
+                                <input type="radio" name="is_super"  class="cbr cbr-primary" value="1" @if($admin_user->is_super==1) checked @endif>
                                 是&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="is_super" id="is_super" class="cbr cbr-primary" value="0" @if($admin_user->is_super==0) checked @endif>
+                                <input type="radio" name="is_super"  class="cbr cbr-primary" value="0" @if($admin_user->is_super==0) checked @endif>
                                 否
                             </div>
 

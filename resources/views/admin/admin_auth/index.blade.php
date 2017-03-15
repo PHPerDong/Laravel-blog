@@ -109,7 +109,7 @@
 								<td>{{$v->name}}</td>
 								<td>{{$v->created_at}}</td>
 								<td>
-									@if($v->status == 1)
+									@if($v->status == 0)
 									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
 										启用
 									</a>
@@ -123,7 +123,7 @@
 									<a href="{{route('administrator_edit',['id'=>$v->id])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
 										修改
 									</a>
-									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+									<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left del" data-id="{{$v->id}}">
 										删除
 									</a>
 								</td>
@@ -211,41 +211,15 @@
 				<div class="chat-group">
 					<strong>Favorites</strong>
 					
-					<a href="#"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
-					<a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
-					<a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
-					<a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
+
 					<a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
 				</div>
 				
-				
-				<div class="chat-group">
-					<strong>Work</strong>
-					
-					<a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
-				</div>
-				
-				
+
 				<div class="chat-group">
 					<strong>Other</strong>
 					
-					<a href="#"><span class="user-status is-online"></span> <em>Dennis E. Johnson</em></a>
-					<a href="#"><span class="user-status is-online"></span> <em>Stuart A. Shire</em></a>
-					<a href="#"><span class="user-status is-online"></span> <em>Janet I. Matas</em></a>
-					<a href="#"><span class="user-status is-online"></span> <em>Mindy A. Smith</em></a>
-					<a href="#"><span class="user-status is-busy"></span> <em>Herman S. Foltz</em></a>
-					<a href="#"><span class="user-status is-busy"></span> <em>Gregory E. Robie</em></a>
-					<a href="#"><span class="user-status is-busy"></span> <em>Nellie T. Foreman</em></a>
-					<a href="#"><span class="user-status is-busy"></span> <em>William R. Miller</em></a>
-					<a href="#"><span class="user-status is-idle"></span> <em>Vivian J. Hall</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Melinda A. Anderson</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Gary M. Mooneyham</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Robert C. Medina</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Dylan C. Bernal</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Marc P. Sanborn</em></a>
-					<a href="#"><span class="user-status is-offline"></span> <em>Kenneth M. Rochester</em></a>
+
 					<a href="#"><span class="user-status is-offline"></span> <em>Rachael D. Carpenter</em></a>
 				</div>
 			
@@ -265,26 +239,7 @@
 				</div>
 				
 				<ul class="conversation-body">	
-					<li>
-						<span class="user">Arlind Nushi</span>
-						<span class="time">09:00</span>
-						<p>Are you here?</p>
-					</li>
-					<li class="odd">
-						<span class="user">Brandon S. Young</span>
-						<span class="time">09:25</span>
-						<p>This message is pre-queued.</p>
-					</li>
-					<li>
-						<span class="user">Brandon S. Young</span>
-						<span class="time">09:26</span>
-						<p>Whohoo!</p>
-					</li>
-					<li class="odd">
-						<span class="user">Arlind Nushi</span>
-						<span class="time">09:27</span>
-						<p>Do you like it?</p>
-					</li>
+
 				</ul>
 				
 				<div class="chat-textarea">
@@ -295,6 +250,55 @@
 			
 		</div>
 		<!-- end: Chat Section -->
+			<script type="text/javascript">
+				jQuery(document).ready(function($) {
+
+					// Validation and Ajax action
+					$(".del").click(function () {
+						var id = $(this).attr('data-id');
+						zeroModal.confirm({
+							content: '确定要删除吗？',
+							contentDetail: '删除后将不能进行恢复。',
+							okFn: function() {
+								$.ajax({
+									url: "{{route('administrator_delete')}}",
+									method: 'POST',
+									dataType: 'json',
+									headers: {
+										'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+									},
+									data: {
+										id: id
+									},
+									success: function (resp) {
+										show_loading_bar({
+											delay: .5,
+											pct: 100,
+											finish: function () {
+												if (resp.accessGranted) {
+													zeroModal.success({
+														content: '操作提示!',
+														contentDetail: '删除成功',
+														okFn: function () {
+															window.location.href = '/admin/administrator_list';
+														}
+													});
+												} else {
+													zeroModal.error(resp.msg);
+												}
+											}
+										});
+									}
+								});
+							},
+							cancelFn: function() {
+								//alert('cancel');
+							}
+						});
+					});
+				});
+			</script>
+			<script src="{{ asset('assets/js/jquery-validate/jquery.validate.min.js')}}"></script>
 @endsection
 
 

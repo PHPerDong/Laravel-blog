@@ -52,6 +52,19 @@ class AdminController extends BaseController
             return response()->json(array('accessGranted'=>1));
         }
     }
+    //删除管理员
+    public function delAdmin(Request $request){
+        $id = $request->input('id',0);
+        if($id == 1){
+            return response()->json(array('accessGranted'=>0,'msg'=>'超级管理员不能删除'));
+        }
+        $result = $this->admin->delete($id);
+        if(!$result){
+            return response()->json(array('accessGranted'=>0));
+        }else{
+            return response()->json(array('accessGranted'=>1));
+        }
+    }
 
 
     public function store(Request $request){

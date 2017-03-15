@@ -35,6 +35,20 @@ class AdminPermissionController extends BaseController
         return view('admin.admin_auth.permission.index',compact('permissions'));
     }
 
+    //删除权限组
+    public function delRole(Request $request){
+        $id = $request->input('id',0);
+        if($id){
+            $result =  $this->role->delete($id);
+            //dd($id);
+            if(!$result){
+                return response()->json(array('accessGranted'=>0,'msg'=>'删除失败'));
+            }else{
+                return response()->json(array('accessGranted'=>1));
+            }
+        }
+    }
+
     //权限组(角色)
     public function roleList(){
         $role_list = Role::orderBy('id','desc')->get();

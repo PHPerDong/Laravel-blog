@@ -30,6 +30,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         Route::get('admin_auth_role',['as' => 'admin.admin_auth.permission.role', 'uses' => 'AdminPermissionController@roleList']);
         //添加权限角色
         Route::any('admin_auth_role/add','AdminPermissionController@roleAdd')->name('roleadd');
+        //删除权限组
+        Route::post('delete/role','AdminPermissionController@delRole')->name('role_delete');
         //修改权限组权限
         Route::any('admin_auth_role/edit/{id}','AdminPermissionController@permissions')->name('role_edit');
         Route::post('permissionsrole/edit/{id}','AdminPermissionController@storePermissions')->name('permissionsrole');
@@ -44,6 +46,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         //修改管理员
         Route::get('administrator/edit/{id}','AdminController@edit')->name('administrator_edit');
         Route::post('update/{id}','AdminController@editAdministrator')->name('administrator_update');
+        //删除管理员
+        Route::post('delete/admin','AdminController@delAdmin')->name('administrator_delete');
     });
 
 });

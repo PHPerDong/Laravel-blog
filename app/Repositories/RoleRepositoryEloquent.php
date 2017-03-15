@@ -61,8 +61,6 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
                 'msg' => '角色名已被使用'
             ];
         }
-
-
         $data = [];
         $data['name'] = $attributes['name'];
         $data['display_name'] = $attributes['display_name'];
@@ -74,7 +72,6 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
                 'msg' => '角色更新失败'
             ];
         }
-
         return ['status' => true];
     }
 

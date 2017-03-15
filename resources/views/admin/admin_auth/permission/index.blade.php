@@ -92,7 +92,7 @@
 										@foreach($v['child'] as $v2)
 										<li data-item="Item 7" data-item-id="g">
 											<div class="uk-nestable-item">
-											    <div class="uk-nestable-handle"></div>
+											    <div class="uk-nestable-handle" ></div>
 											    <div data-nestable-action="toggle"></div>
 												<div class="list-label">{{ $v2->display_name }}</div>
 											</div>
