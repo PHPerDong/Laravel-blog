@@ -21,7 +21,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
     Route::any('login','LoginController@login')->name('admin_login');
     Route::get('errors/403','LoginController@errors');
     Route::get('logout', 'LoginController@logout');
-    Route::group(['middleware'=>'auth.admin'],function(){
+    Route::group(['middleware'=>['auth.admin','menu']],function(){
         Route::get('admin', ['as' => 'admin.index.index', 'uses' => 'IndexController@index']);
         Route::post('admin_reg', 'AdminController@store')->name('admin_reg');
 
@@ -48,6 +48,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         Route::post('update/{id}','AdminController@editAdministrator')->name('administrator_update');
         //删除管理员
         Route::post('delete/admin','AdminController@delAdmin')->name('administrator_delete');
+        //清除缓存
+        Route::get('clear_cache','AdminPermissionController@clearedCache');
     });
 
 });

@@ -305,12 +305,12 @@
                         个人中心
                     </a>
                 </li>
-                {{--<li>
-                    <a href="#help">
-                        <i class="fa-info"></i>
-                        Help
+                <li>
+                    <a href="javascript:;" class="clear">
+                        <i class="fa-cogs"></i>
+                        清除缓存
                     </a>
-                </li>--}}
+                </li>
                 <li class="last">
                     <a href="/admin/logout">
                         <i class="fa-lock"></i>
@@ -329,3 +329,37 @@
     </ul>
 
 </nav>
+<script>
+    $('.clear').click(function(){
+        $.ajax({
+            url: "/admin/clear_cache",
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            data: {
+                status: 1
+            },
+            success: function (resp) {
+                show_loading_bar({
+                    delay: .5,
+                    pct: 100,
+                    finish: function () {
+                        if (resp.accessGranted) {
+                            zeroModal.success({
+                                content: '操作提示!',
+                                contentDetail: '清除成功',
+                                okFn: function () {
+                                    window.location.href = '/admin/admin';
+                                }
+                            });
+                        } else {
+                            zeroModal.error(resp.msg);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

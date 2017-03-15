@@ -105,125 +105,41 @@
 
 
             </header>
-
-
-
             <ul id="main-menu" class="main-menu">
-                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-
+                @foreach($menuData as $v)
                 <li>
-                    <a href="extra-gallery.html">
-                        <i class="fa-newspaper-o"></i>
-                        <span class="title">文章管理</span>
-                        <span class="label label-purple pull-right hidden-collapsed">5</span>
+                    <a href="{{$v->url}}">
+                        <i class="{{$v->icon}}"></i>
+                        <span class="title">{{$v->display_name}}</span>
+                        {{--<span class="label label-purple pull-right hidden-collapsed">5</span>--}}
                     </a>
+                    @if(count($v->child)>0)
                     <ul>
+                        @foreach($v->child as $child)
                         <li>
-                            <a href="extra-icons-fontawesome.html">
-                                <span class="title">标签管理</span>
-                                <span class="label label-warning pull-right">4</span>
+                            <a href="{{$child->url}}">
+                                <i class="entypo-flow-line"></i>
+                                <span class="title">{{$child->display_name}}</span>
                             </a>
+                            @if(count($child->child)>0)
                             <ul>
+                                @foreach($child->$child as $childs)
                                 <li>
-                                    <a href="extra-icons-fontawesome.html">
-                                        <span class="title">Font Awesome</span>
+                                    <a href="{{$childs->url}}">
+                                        <i class="entypo-flow-parallel"></i>
+                                        <span class="title">{{$childs->display_name}}</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="extra-icons-linecons.html">
-                                        <span class="title">Linecons</span>
-                                    </a>
-                                </li>
-
+                                @endforeach
                             </ul>
+                            @endif
                         </li>
-
-                        <li>
-                            <a href="{{route('article_list')}}">
-                                <span class="title">文章列表</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="extra-gallery.html">
-                                <span class="title">添加文章</span>
-                            </a>
-                        </li>
+                       @endforeach
                     </ul>
+                        @endif
                 </li>
+                    @endforeach
 
-                <li>
-                    <a href="#">
-                        <i class="fa-group"></i>
-                        <span class="title">后台权限管理</span>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">测试使用</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="entypo-flow-parallel"></i>
-                                        <span class="title">Menu Level 2.1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="entypo-flow-parallel"></i>
-                                        <span class="title">Menu Level 2.2</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="entypo-flow-parallel"></i>
-                                        <span class="title">Menu Level 2.3</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/admin/administrator">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">添加管理员</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/admin_auth_role">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">权限组(角色)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/admin_auth_role/add">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">添加权限组(角色)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/admin_auth_permission">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">菜单权限列表</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/administrator_list">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">管理员列表</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/admin_auth_permission/add">
-                                <i class="entypo-flow-line"></i>
-                                <span class="title">添加菜单</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
-
         </div>
-
     </div>

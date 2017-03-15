@@ -8,6 +8,7 @@ use App\Repositories\RoleRepositoryEloquent;
 use App\Model\Permission,App\Model\Role;
 use App\Http\Requests\Admin\Permission\CreateRequest;
 use App\Http\Requests\Admin\Permission\UpdateRequest;
+use Cache;
 //use Breadcrumbs, Toastr;
 
 class AdminPermissionController extends BaseController
@@ -100,6 +101,14 @@ class AdminPermissionController extends BaseController
         } else {
             //Toastr::success('新权限添加成功!');
             //return redirect('admin/permission');
+            return response()->json(array('accessGranted'=>1));
+        }
+    }
+
+    //清除缓存
+    public function clearedCache(Request $request){
+        if($status = $request->input('status',0)){
+            Cache::forget('permission:');
             return response()->json(array('accessGranted'=>1));
         }
     }

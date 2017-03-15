@@ -36,7 +36,6 @@ class AuthAdmin
                 return response()->view('admin.errors.403', compact('previousUrl'));
             }
         }
-
         return $next($request);
     }
 }
