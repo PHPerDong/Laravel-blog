@@ -35,8 +35,7 @@
 					</div>
 					
 				</div>
-				<!-- <div class="col-sm-6">
-					
+				<div class="col-sm-6">
 					<div class="chart-item-bg">
 						<div class="chart-label">
 							<div class="h3 text-secondary text-bold" data-count="this" data-from="0.00" data-to="14.85" data-suffix="%" data-duration="1">0.00%</div>
@@ -44,34 +43,8 @@
 						</div>
 						<div id="pageviews-visitors-chart" style="height: 298px;"></div>
 					</div>
-					
-				</div> -->
-				<!-- <div class="col-sm-3">
-					
-					<div class="chart-item-bg">
-						<div class="chart-label chart-label-small">
-							<div class="h4 text-purple text-bold" data-count="this" data-from="0.00" data-to="95.8" data-suffix="%" data-duration="1.5">0.00%</div>
-							<span class="text-small text-upper text-muted">Current Server Uptime</span>
-						</div>
-						<div id="server-uptime-chart" style="height: 134px;"></div>
-					</div>
-					
-					<div class="chart-item-bg">
-						<div class="chart-label chart-label-small">
-							<div class="h4 text-secondary text-bold" data-count="this" data-from="0.00" data-to="320.45" data-decimal="," data-duration="2">0</div>
-							<span class="text-small text-upper text-muted">Avg. of Sales</span>
-						</div>
-						<div id="sales-avg-chart" style="height: 134px; position: relative;">
-							<div style="position: absolute; top: 25px; right: 0; left: 40%; bottom: 0"></div>
-						</div>
-					</div>
-					
-				</div> -->
+				</div>
 			</div>
-			
-			
-
-
 @endsection
 @section('footer')
 			<footer class="main-footer sticky footer-type-1">
@@ -84,19 +57,14 @@
 						<strong>Xenon</strong> 
 						theme by <a href="http://laborator.co" target="_blank">Laborator</a>
 					</div>
-					
-					
 					<!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
 					<div class="go-up">
 					
 						<a href="#" rel="go-top">
 							<i class="fa-angle-up"></i>
 						</a>
-						
 					</div>
-					
 				</div>
-				
 			</footer>
 		@endsection
 
@@ -142,12 +110,8 @@
 				
 				<div class="chat-group">
 					<strong>Favorites</strong>
-					
-
 					<a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
 				</div>
-
-			
 			</div>
 			
 			<!-- conversation template -->

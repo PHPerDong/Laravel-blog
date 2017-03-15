@@ -10,7 +10,7 @@ class Permission extends EntrustPermission implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['fid', 'icon', 'name', 'display_name', 'description', 'is_menu', 'sort'];
+    protected $fillable = ['fid', 'icon', 'name', 'display_name', 'description', 'is_menu', 'sort','url'];
 
     protected $appends = ['icon_html', 'sub_permission'];
 

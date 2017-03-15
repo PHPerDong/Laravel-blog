@@ -92,7 +92,6 @@ class AdminPermissionController extends BaseController
 
     //添加菜单
     public function store(CreateRequest $request){
-
         $result = Permission::create($request->all());
         if(!$result) {
             //Toastr::error('新权限添加失败!');

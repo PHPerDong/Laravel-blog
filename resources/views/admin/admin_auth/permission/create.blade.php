@@ -75,6 +75,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="password-1">Url:</label>
+                                <input type="text" class="form-control" name="url" id="url" placeholder="">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="password-1">图标:</label>
                                 <input type="text" class="form-control" name="icon" id="icon" placeholder="">
                             </div>
@@ -310,6 +315,7 @@
                             fid:$(form).find('#sboxit-1').val(),
                             is_menu:$(form).find('#is_menu').val(),
                             sort:$(form).find('#sort').val(),
+                            url:$(form).find('#url').val(),
                         },
                         success: function(resp)
                         {
