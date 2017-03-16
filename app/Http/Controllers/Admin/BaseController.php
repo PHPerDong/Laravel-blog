@@ -17,25 +17,9 @@ class BaseController extends Controller
 
       public function __construct()
       {
-            //dump(2);
-            //$this->middleware('auth.admin');
-            //dump('adfasdf');
-            $this->admin = Auth::guard('admin')->user();
-            //$this->permissionPresenter = $permissionPresenter;
-            //$menus = $this->permissionPresenter->menus();
-            //dd(Auth::guard('admin')->user());
-            //$this->getMenu();
+
 
       }
-
-      protected function getMenu(){
-            dd(Auth::guard('admin')->user());
-      }
-
-
-
-
-
 
 
 }

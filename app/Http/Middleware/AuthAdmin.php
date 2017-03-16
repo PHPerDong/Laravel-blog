@@ -19,6 +19,10 @@ class AuthAdmin
     public function handle($request, Closure $next, $guard = null)
     {
         //return $next($request);
+        if (false == Auth::guard('admin')->check()) {
+            return redirect('/admin/login');
+        }
+
         if(Auth::guard('admin')->user()->is_super){
             return $next($request);
         }

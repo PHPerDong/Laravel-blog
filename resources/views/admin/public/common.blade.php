@@ -8,7 +8,7 @@
     <meta name="description" content="Xenon Boostrap Admin Panel" />
     <meta name="author" content="" />
 
-    <title>Xenon - Forms</title>
+    <title>Laravel后台管理系统</title>
 
    <!--  <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('zeroModal/zeroModal.css') }}" />

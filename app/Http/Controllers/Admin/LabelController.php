@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IndexController extends BaseController
+class LabelController extends Controller
 {
-    //首页
+
+    //
     public function index(){
-        //dd('index');
-        return view('admin.index.index');
+        return view('admin.label.index');
     }
 
     /**
@@ -21,6 +21,8 @@ class IndexController extends BaseController
     public function create()
     {
         //
+        return view('admin.article.create');
+
     }
 
     /**
@@ -78,6 +80,4 @@ class IndexController extends BaseController
     {
         //
     }
-
-
 }
