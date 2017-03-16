@@ -11,7 +11,7 @@
     <div class="page-title">
 
             <div class="title-env">
-                <h1 class="title">分类添加</h1>
+                <h1 class="title">分类修改</h1>
                 {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
             </div>
 
@@ -27,7 +27,7 @@
                     </li>
                     <li class="active">
 
-                        <strong>分类添加</strong>
+                        <strong>分类修改</strong>
                     </li>
                 </ol>
             </div>
@@ -36,7 +36,7 @@
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">分类添加</h3>
+                        <h3 class="panel-title">分类修改</h3>
                         <div class="panel-options">
                             <a href="#" data-toggle="panel">
                                 <span class="collapse-icon">&ndash;</span>
@@ -51,7 +51,7 @@
                         <form role="form" id="reg">
                             <div class="form-group">
                                 <label for="email-1">名称:</label>
-                                <input type="text" class="form-control"  name="name" id="name" placeholder="请输入">
+                                <input type="text" class="form-control"  name="name" id="name" placeholder="请输入" value="{{$category->name}}">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">所属上级菜单</label>
@@ -81,14 +81,14 @@
 
                             <div class="form-group">
                                 <label for="password-1">排序:</label>
-                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序" >
+                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序" value="{{$category->sort}}">
                             </div>
 
 
                             {{csrf_field()}}
                             <div class="form-group">
                                 {{--<button type="submit" class="btn btn-gray btn-single">添加</button>--}}
-                                <button type="submit" class="btn btn-info btn-single pull-right">添加</button>
+                                <button type="submit" class="btn btn-info btn-single pull-right">修改</button>
                             </div>
 
                         </form>
@@ -169,21 +169,7 @@
             </div>
 
             <ul class="conversation-body">
-                <li>
-                    <span class="user">Arlind Nushi</span>
-                    <span class="time">09:00</span>
-                    <p>Are you here?</p>
-                </li>
-                <li class="odd">
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:25</span>
-                    <p>This message is pre-queued.</p>
-                </li>
-                <li>
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:26</span>
-                    <p>Whohoo!</p>
-                </li>
+
                 <li class="odd">
                     <span class="user">Arlind Nushi</span>
                     <span class="time">09:27</span>
@@ -242,7 +228,7 @@
                         "hideMethod": "fadeOut"
                     };
                     $.ajax({
-                        url: "{{route('classification.store')}}",
+                        url: "/admin/edit/class",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
@@ -252,6 +238,7 @@
                             name: $(form).find('#name').val(),
                             pid:$(form).find('#sboxit-1').val(),
                             sort:$(form).find('#sort').val(),
+                            id:'<?php echo $_GET['pid']?>'
                         },
                         success: function(resp)
                         {
@@ -264,13 +251,13 @@
                                     {
                                         zeroModal.success({
                                             content: '操作提示!',
-                                            contentDetail: '添加成功',
+                                            contentDetail: '修改成功',
                                             okFn: function() {
                                                 window.location.href = '/admin/classification';
                                             }
                                         });
                                     }else{
-                                        zeroModal.error('添加失败!');
+                                        zeroModal.error('修改失败!');
                                     }
                                 }
                             });

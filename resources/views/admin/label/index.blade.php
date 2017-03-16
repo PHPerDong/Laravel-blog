@@ -120,7 +120,9 @@
 
 				</tbody>
 			</table>
-
+			<a href="{{route('label.create')}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+				添加标签
+			</a>
 		</div>
 	</div>
 

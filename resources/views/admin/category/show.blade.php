@@ -51,7 +51,7 @@
                         <form role="form" id="reg">
                             <div class="form-group">
                                 <label for="email-1">名称:</label>
-                                <input type="text" class="form-control"  name="name" id="name" placeholder="请输入">
+                                <input type="text" class="form-control"  name="name" id="name" placeholder="请输入" value="{{$category->name}}">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">所属上级菜单</label>
@@ -81,7 +81,7 @@
 
                             <div class="form-group">
                                 <label for="password-1">排序:</label>
-                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序" >
+                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序" value="{{$category->sort}}">
                             </div>
 
 

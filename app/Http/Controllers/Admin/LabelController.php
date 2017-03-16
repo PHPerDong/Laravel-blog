@@ -21,7 +21,7 @@ class LabelController extends Controller
     public function create()
     {
         //
-        return view('admin.article.create');
+        return view('admin.label.create');
 
     }
 
