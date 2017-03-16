@@ -99,24 +99,23 @@
 
 				<tbody class="middle-align">
 
-				<tr>
-					<td>
-						<input type="checkbox" class="cbr">
-					</td>
-					<td>1</td>
-					<td>测试</td>
-					<td>
-						<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-							添加子分类
-						</a>
-						<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-							编辑
-						</a>
-						<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-							删除
-						</a>
-					</td>
-				</tr>
+				@foreach($label as $v)
+					<tr>
+						<td>
+							<input type="checkbox" class="cbr">
+						</td>
+						<td>{{$v->id}}</td>
+						<td>{{$v->name}}</td>
+						<td>
+							<a href="{{route('label.edit',['id'=>$v->id])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+								编辑
+							</a>
+							<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left delc" data-id="{{$v->id}}">
+								删除
+							</a>
+						</td>
+					</tr>
+				@endforeach
 
 				</tbody>
 			</table>
@@ -236,21 +235,7 @@
 					<span class="time">09:00</span>
 					<p>Are you here?</p>
 				</li>
-				<li class="odd">
-					<span class="user">Brandon S. Young</span>
-					<span class="time">09:25</span>
-					<p>This message is pre-queued.</p>
-				</li>
-				<li>
-					<span class="user">Brandon S. Young</span>
-					<span class="time">09:26</span>
-					<p>Whohoo!</p>
-				</li>
-				<li class="odd">
-					<span class="user">Arlind Nushi</span>
-					<span class="time">09:27</span>
-					<p>Do you like it?</p>
-				</li>
+
 			</ul>
 
 			<div class="chat-textarea">
@@ -261,6 +246,47 @@
 
 	</div>
 	<!-- end: Chat Section -->
+	<script>
+		$('.delc').click(function(){
+			var id = $(this).attr('data-id');
+			zeroModal.confirm({
+				content: '确定要删除吗？',
+				contentDetail: '删除后将不能进行恢复。',
+				okFn: function () {
+					$.ajax({
+						url: "/admin/delete/label",
+						method: 'POST',
+						dataType: 'json',
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+						},
+						data: {
+							id: id
+						},
+						success: function (resp) {
+							show_loading_bar({
+								delay: .5,
+								pct: 100,
+								finish: function () {
+									if (resp.accessGranted) {
+										zeroModal.success({
+											content: '操作提示!',
+											contentDetail: '删除成功',
+											okFn: function () {
+												window.location.href = '/admin/label';
+											}
+										});
+									} else {
+										zeroModal.error(resp.msg);
+									}
+								}
+							});
+						}
+					});
+				}
+			});
+		});
+	</script>
 	@endsection
 
 

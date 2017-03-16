@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Label;
 
 class LabelController extends Controller
 {
 
     //
     public function index(){
-        return view('admin.label.index');
+        $label = Label::orderBy('id','desc')->paginate(10);
+        return view('admin.label.index',compact('label'));
     }
 
     /**
@@ -18,7 +20,7 @@ class LabelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         return view('admin.label.create');
@@ -34,6 +36,12 @@ class LabelController extends Controller
     public function store(Request $request)
     {
         //
+        $result = Label::create($request->all());
+        if(!$result){
+            return response()->json(array('accessGranted'=>0));
+        }else{
+            return response()->json(array('accessGranted'=>1));
+        }
     }
 
     /**
@@ -45,6 +53,10 @@ class LabelController extends Controller
     public function show($id)
     {
         //
+        if($id){
+            $label = Label::find($id);
+        }
+        return view('admin.label.show',compact('label'));
     }
 
     /**
@@ -56,6 +68,10 @@ class LabelController extends Controller
     public function edit($id)
     {
         //
+        if($id){
+            $label = Label::find($id);
+        }
+        return view('admin.label.edit',compact('label'));
     }
 
     /**
@@ -68,6 +84,19 @@ class LabelController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
+    }
+
+    public function editLabel(Request $request){
+        $data = $request->all();
+        $id = $data['id'];
+        $result = Label::where('id',$id)->update($data);
+        if(!$result){
+            return response()->json(array('accessGranted'=>0));
+        }else{
+            return response()->json(array('accessGranted'=>1));
+        }
     }
 
     /**
@@ -79,5 +108,14 @@ class LabelController extends Controller
     public function destroy($id)
     {
         //
+
+    }
+    public function delLabel(Request $request){
+        $result = Label::where('id',$request->input('id',0))->delete();
+        if(!$result){
+            return response()->json(array('accessGranted'=>0,'msg'=>'删除失败'));
+        }else{
+            return response()->json(array('accessGranted'=>1));
+        }
     }
 }

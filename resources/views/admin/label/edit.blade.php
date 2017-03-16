@@ -11,7 +11,7 @@
     <div class="page-title">
 
         <div class="title-env">
-            <h1 class="title">标签添加</h1>
+            <h1 class="title">标签修改</h1>
             {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
         </div>
 
@@ -19,15 +19,15 @@
 
             <ol class="breadcrumb bc-1">
                 <li>
-                    <a href="dashboard-1.html"><i class="fa-home"></i>后台</a>
+                    <a href="#"><i class="fa-home"></i>后台</a>
                 </li>
                 <li>
 
-                    <a href="forms-native.html">菜单</a>
+                    <a href="#">菜单</a>
                 </li>
                 <li class="active">
 
-                    <strong>标签添加</strong>
+                    <strong>标签修改</strong>
                 </li>
             </ol>
         </div>
@@ -36,7 +36,7 @@
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">标签添加</h3>
+                    <h3 class="panel-title">标签修改</h3>
                     <div class="panel-options">
                         <a href="#" data-toggle="panel">
                             <span class="collapse-icon">&ndash;</span>
@@ -51,15 +51,13 @@
                     <form role="form" id="reg">
                         <div class="form-group">
                             <label for="email-1">名称:</label>
-                            <input type="text" class="form-control"  name="name" id="name" placeholder="请输入">
+                            <input type="text" class="form-control"  name="name" id="name" placeholder="请输入" value="{{$label->name}}">
                         </div>
-
-
-
                         {{csrf_field()}}
+                        <input type="hidden" value="{{$label->id}}" name="id" id="ids">
                         <div class="form-group">
                             {{--<button type="submit" class="btn btn-gray btn-single">添加</button>--}}
-                            <button type="submit" class="btn btn-info btn-single pull-right">添加</button>
+                            <button type="submit" class="btn btn-info btn-single pull-right">修改</button>
                         </div>
 
                     </form>
@@ -140,21 +138,6 @@
             </div>
 
             <ul class="conversation-body">
-                <li>
-                    <span class="user">Arlind Nushi</span>
-                    <span class="time">09:00</span>
-                    <p>Are you here?</p>
-                </li>
-                <li class="odd">
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:25</span>
-                    <p>This message is pre-queued.</p>
-                </li>
-                <li>
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:26</span>
-                    <p>Whohoo!</p>
-                </li>
                 <li class="odd">
                     <span class="user">Arlind Nushi</span>
                     <span class="time">09:27</span>
@@ -207,7 +190,7 @@
                         "hideMethod": "fadeOut"
                     };
                     $.ajax({
-                        url: "{{route('label.store')}}",
+                        url: "/admin/updates/label",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
@@ -215,6 +198,7 @@
                         },
                         data: {
                             name: $(form).find('#name').val(),
+                            id: $(form).find('#ids').val(),
                         },
                         success: function(resp)
                         {
@@ -227,13 +211,13 @@
                                     {
                                         zeroModal.success({
                                             content: '操作提示!',
-                                            contentDetail: '添加成功',
+                                            contentDetail: '修改成功',
                                             okFn: function() {
                                                 window.location.href = '/admin/label';
                                             }
                                         });
                                     }else{
-                                        zeroModal.error('添加失败!');
+                                        zeroModal.error('修改失败!');
                                     }
                                 }
                             });

@@ -61,6 +61,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         $router->post('/edit/class',['as' => 'class.edit', 'uses' => 'CategoryController@editClass']);
         //文章标签管理
         $router->resource('/label','LabelController');
+        //修改标签
+        $router->post('/updates/label',['as' => 'label.update', 'uses' => 'LabelController@editLabel']);
+        //删除标签
+        $router->post('/delete/label',['as' => 'label.delete', 'uses' => 'LabelController@delLabel']);
+
 
     });
 

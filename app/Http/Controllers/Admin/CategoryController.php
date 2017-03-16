@@ -23,10 +23,7 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         //
-        if($id = $request->get('id',0)){
-            $category = Category::find($id);
-        }
-        return view('admin.category.create',compact('category'));
+        return view('admin.category.create');
 
     }
 
@@ -113,7 +110,6 @@ class CategoryController extends Controller
     }
 
     public function delClass(Request $request){
-         //dd($request->all());
          $result = Category::where('id',$request->input('id',0))->delete();
          if(!$result){
              return response()->json(array('accessGranted'=>0,'msg'=>'删除失败'));
