@@ -50,27 +50,31 @@
                     <div class="panel-body">
                         <form role="form" id="reg">
                             <div class="form-group">
-                                <label for="email-1">权限路由:</label>
-                                <input type="text" class="form-control"  name="name" id="name" placeholder="请输入路由名 如:admin.role">
+                                <label for="email-1">文章标题:</label>
+                                <input type="text" class="form-control"  name="title" id="title" placeholder="请输入">
                             </div>
                             <div class="form-group">
-                                <label for="password-1">显示名称:</label>
-                                <input type="text" class="form-control" name="display_name" id="display_name" placeholder="请输入菜单名">
+                                <label for="password-1">显示内容:</label>
+                                <input type="text" class="form-control" name="content" id="content" placeholder="请输入内容">
                             </div>
                             <div class="form-group">
-                                <label for="password-1">说明:</label>
-                                <input type="text" class="form-control" name="description" id="description" placeholder="">
+                                <label for="password-1">简介:</label>
+                                <textarea class="form-control" cols="5" name="introduction" id="introduction"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="password-1">Url:</label>
-                                <input type="text" class="form-control" name="url" id="url" placeholder="">
+                                <label for="password-1">图片集:</label><br/>
+                                <a href="javascript:;" class="btn btn-white btn-icon btn-icon-standalone btn-sm" id="upload-photo-btn">
+                                    <i class="fa-image"></i>
+                                    <span>上传多图</span>
+                                </a>
+                                <div id="photo-container"></div>
                             </div>
+                           {{-- <div class="form-group">
+                                <label for="password-1">缩略图:</label>
+                                <input type="file" class="form-control" name="thumb" id="thumb" placeholder="">
+                            </div>--}}
                             <div class="form-group">
-                                <label for="password-1">图标:</label>
-                                <input type="text" class="form-control" name="icon" id="icon" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">所属上级菜单</label>
+                                <label class="control-label">所属上级分类</label>
 
                                 <script type="text/javascript">
                                     jQuery(document).ready(function($)
@@ -81,19 +85,46 @@
                                         });
                                     });
                                 </script>
-
-
-                                @inject('permissionPresenter','App\Presenters\PermissionPresenter')
-
-                                {!! $permissionPresenter->topPermissionSelect() !!}
-
+                                @inject('categoryPresenter','App\Http\Controllers\Admin\CategoryController')
+                                {!! $categoryPresenter->topCategorySelect() !!}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">文章标签</label>
+                                <script type="text/javascript">
+                                    jQuery(document).ready(function($)
+                                    {
+                                        $("#s2example-2").select2({
+                                            placeholder: '请选择文章标签',
+                                            allowClear: true
+                                        }).on('select2-open', function()
+                                        {
+                                            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                        });
+                                    });
+                                </script>
+                                <select class="form-control" id="s2example-2" multiple name="label_id">
+                                    <option></option>
+                                    <optgroup label="请选择">
+                                        @foreach($label as $v)
+                                            <option value="{{$v->id}}">{{$v->name}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="password-1">是否显示:</label>
-                                <input type="radio" name="is_menu" id="is_menu" class="cbr cbr-primary" value="1" checked>
+                                <input type="radio" name="is_show" id="is_show" class="cbr cbr-primary is_menu" value="1" checked>
                                 是&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="is_menu" id="is_menu" class="cbr cbr-primary" value="0">
+                                <input type="radio" name="is_show" id="is_show" class="cbr cbr-primary is_menu" value="0">
+                                否
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-1">是否置顶:</label>
+                                <input type="radio" name="is_top" id="is_top" class="cbr cbr-primary" value="1">
+                                是&nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="is_top" id="is_top" class="cbr cbr-primary" value="0" checked>
                                 否
                             </div>
 
@@ -180,43 +211,55 @@
                 <a href="#" class="conversation-close">
                     &times;
                 </a>
-
                 <span class="user-status is-online"></span>
                 <span class="display-name">Arlind Nushi</span>
                 <small>Online</small>
             </div>
 
             <ul class="conversation-body">
-                <li>
-                    <span class="user">Arlind Nushi</span>
-                    <span class="time">09:00</span>
-                    <p>Are you here?</p>
-                </li>
-                <li class="odd">
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:25</span>
-                    <p>This message is pre-queued.</p>
-                </li>
-                <li>
-                    <span class="user">Brandon S. Young</span>
-                    <span class="time">09:26</span>
-                    <p>Whohoo!</p>
-                </li>
                 <li class="odd">
                     <span class="user">Arlind Nushi</span>
                     <span class="time">09:27</span>
                     <p>Do you like it?</p>
                 </li>
             </ul>
-
             <div class="chat-textarea">
                 <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
             </div>
-
         </div>
-
     </div>
+        <script src="{{ asset('kindeditor/kindeditor.config.js')}}"></script>
+        <script src="{{ asset('kindeditor/kindeditor-all-min.js')}}"></script>
     <!-- end: Chat Section -->
+        <script>
+            $(document).ready(function () {
+                var _kindEditor;
+                KindEditor.ready(function(K) {
+                    _kindEditor = K.create('#content', KindEditorOptions);
+
+                    K('#upload-photo-btn').click(function () {
+                        var photo_list_item = '';
+                        _kindEditor.loadPlugin('multiimage', function() {
+                            _kindEditor.plugin.multiImageDialog({
+                                showRemote : false,
+                                imageUrl : K('#photo').val(),
+                                clickFn : function(data) {
+                                    $.each(data, function (index, item) {
+                                        photo_list_item += '<div class="photo-list"><input type="text" name="photo" value="' + item.url + '" class="form-control photo" style="width:300px" id="photo">';
+                                        photo_list_item += '<button type="button" class="btn btn-red remove-photo-btn">移除</button></div>'
+                                    });
+                                    $('#photo-container').append(photo_list_item);
+                                    _kindEditor.hideDialog();
+                                }
+                            });
+                        });
+                    });
+                });
+                $('#photo-container').on('click', '.remove-photo-btn', function () {
+                    $(this).parent('.photo-list').remove();
+                });
+            });
+        </script>
 
     <script type="text/javascript">
         jQuery(document).ready(function($)
@@ -226,25 +269,25 @@
             // Validation and Ajax action
             $("form#reg").validate({
                 rules: {
-                    name: {
+                    title: {
                         required: true
                     },
-                    description: {
+                    content: {
                         required: true
                     },
-                    fid: {
+                    pid: {
                         required: true
                     }
                 },
                 messages: {
-                    name: {
-                        required: '请输入路由名.'
+                    title: {
+                        required: '请输入.'
                     },
-                    description: {
-                        required: '请输入菜单名.'
+                    content: {
+                        required: '请输入.'
                     },
-                    fid: {
-                        required: '请选择权限组.'
+                    pid: {
+                        required: '请选择.'
                     }
                 },
                 // Form Processing via AJAX
@@ -265,22 +308,28 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     };
+                    var id_array=new Array();
+                    $('input[name="photo"]').each(function(){
+                        id_array.push($(this).val());//向数组中添加元素
+                    });
+                    var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串
                     $.ajax({
-                        url: "{{route('store')}}",
+                        url: "{{route('article.store')}}",
                         method: 'POST',
                         dataType: 'json',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                         },
                         data: {
-                            name: $(form).find('#name').val(),
-                            description: $(form).find('#description').val(),
-                            display_name:$(form).find('#display_name').val(),
-                            icon:$(form).find('#icon').val(),
-                            fid:$(form).find('#sboxit-1').val(),
-                            is_menu:$(form).find('#is_menu').val(),
+                            title: $(form).find('#title').val(),
+                            content: $(form).find('#content').val(),
+                            pid:$(form).find('#sboxit-1').val(),
+                            photo:idstr,
+                            is_show:$(form).find('#is_show').val(),
                             sort:$(form).find('#sort').val(),
-                            url:$(form).find('#url').val(),
+                            introduction:$(form).find('#introduction').val(),
+                            label_id:$(form).find('#s2example-2').val(),
+                            is_top:$(form).find('#is_top').val(),
                         },
                         success: function(resp)
                         {
@@ -295,7 +344,7 @@
                                             content: '操作提示!',
                                             contentDetail: '添加成功',
                                             okFn: function() {
-                                                window.location.href = '/admin/admin_auth_permission/add';
+                                                window.location.href = '/admin/article';
                                             }
                                         });
                                     }else{

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Model\Label,App\Model\Article;
 
 class ArticleController extends BaseController
 {
@@ -19,7 +20,8 @@ class ArticleController extends BaseController
     public function create()
     {
         //
-        return view('admin.article.create');
+        $label = Label::orderBy('id','desc')->get();
+        return view('admin.article.create',compact('label'));
 
     }
 
@@ -31,7 +33,16 @@ class ArticleController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $label = $data['label_id'];
+        unset($data['label_id']);
+        $article = Article::create($data);
+        foreach($label as $v){
+            $article->labels()->attach($v,[
+                'name'=> '测试'
+            ]);
+        }
+        return response()->json(array('accessGranted'=>1));
     }
 
     /**

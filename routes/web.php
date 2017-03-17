@@ -67,6 +67,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         $router->post('/delete/label',['as' => 'label.delete', 'uses' => 'LabelController@delLabel']);
 
 
+
+        //多图上传
+        $router->post('/upload/upload','UploadController@upload');
+
+
     });
 
 });

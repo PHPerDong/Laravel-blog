@@ -12,7 +12,7 @@ class Label extends Model
     protected $fillable = ['id','name'];
 
     public function articles(){
-        return $this->belongsToMany('App\Model\ArticleLabel','articles_label','article_id','label_id');
+        return $this->belongsToMany('App\Model\Article','articles_label','article_id','label_id');
     }
 
 
