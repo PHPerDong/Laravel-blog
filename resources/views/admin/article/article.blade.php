@@ -91,22 +91,26 @@
 								<th class="no-sorting">
 									<input type="checkbox" class="cbr">
 								</th>
-								<th>Student Name</th>
-								<th>Average Grade</th>
-								<th>Curriculum / Occupation</th>
-								<th>Actions</th>
+								<th>ID</th>
+								<th>标题</th>
+								<th>标签</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						
 						<tbody class="middle-align">
-						
+						@foreach($article as $v)
 							<tr>
 								<td>
 									<input type="checkbox" class="cbr">
 								</td>
-								<td>Randy S. Smith</td>
-								<td>8.7</td>
-								<td>Social and human service</td>
+								<td>{{$v->id}}</td>
+								<td>{{$v->title}}</td>
+								<td>
+									@foreach($v->labels as $vs)
+									      {{$vs->name}}
+									@endforeach
+								</td>
 								<td>
 									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
 										修改
@@ -118,47 +122,7 @@
 
 								</td>
 							</tr>
-
-							<tr>
-								<td>
-									<input type="checkbox" class="cbr">
-								</td>
-								<td>Randy S. Smith</td>
-								<td>8.7</td>
-								<td>Social and human service</td>
-								<td>
-									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-										修改
-									</a>
-
-									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-										删除
-									</a>
-
-
-								</td>
-							</tr>
-
-							<tr>
-								<td>
-									<input type="checkbox" class="cbr">
-								</td>
-								<td>Randy S. Smith</td>
-								<td>8.7</td>
-								<td>Social and human service</td>
-								<td>
-									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-										修改
-									</a>
-
-									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-										删除
-									</a>
-
-
-								</td>
-							</tr>
-
+							@endforeach
 							
 						</tbody>
 					</table>

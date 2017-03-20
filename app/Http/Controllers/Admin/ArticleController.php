@@ -9,7 +9,8 @@ class ArticleController extends BaseController
 {
     //
     public function index(){
-        return view('admin.article.article');
+        $article = Article::orderBy('id','desc')->with('labels')->get();
+        return view('admin.article.article',compact('article'));
     }
 
     /**
