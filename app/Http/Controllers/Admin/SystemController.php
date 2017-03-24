@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\Label,App\Model\Article;
+use App\Http\Controllers\Controller;
 
-class ArticleController extends BaseController
+class SystemController extends BaseController
 {
     //
     public function index(){
-        $article = Article::orderBy('id','desc')->with('labels')->paginate(1);
-        //dd($article->total());
-        return view('admin.article.article',compact('article'));
+        //dd('index');
+        return view('admin.index.index');
     }
 
     /**
@@ -22,9 +21,6 @@ class ArticleController extends BaseController
     public function create()
     {
         //
-        $label = Label::orderBy('id','desc')->get();
-        return view('admin.article.create',compact('label'));
-
     }
 
     /**
@@ -35,17 +31,7 @@ class ArticleController extends BaseController
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $label = $data['label_id'];
-        unset($data['label_id']);
-        $article = Article::create($data);
-        $article->categorys()->attach($data['pid']);
-        foreach($label as $v){
-            $article->labels()->attach($v,[
-                'name'=> '测试',
-            ]);
-        }
-        return response()->json(array('accessGranted'=>1));
+        //
     }
 
     /**
@@ -68,11 +54,6 @@ class ArticleController extends BaseController
     public function edit($id)
     {
         //
-        $label = Label::orderBy('id','desc')->get();
-        $article = Article::find($id);
-        //dd(count($article['photo']));
-        //dd($article['photo']);
-        return view('admin.article.edit',compact('label','article'));
     }
 
     /**
@@ -99,7 +80,9 @@ class ArticleController extends BaseController
     }
 
 
-
+    public function checkIn(){
+        return view('admin.system.check');
+    }
 
 
 }

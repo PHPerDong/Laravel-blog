@@ -21,7 +21,7 @@ class UploadController extends Controller
             ];
         }
 
-        $destinationPath = 'uploads/'; //public 文件夹下面建 storage/uploads 文件夹
+        $destinationPath = 'uploads/'; //public 文件夹下面建 /uploads 文件夹
         $extension = $file->getClientOriginalExtension();
         $fileName = str_random(10).'.'.$extension;
         $file->move($destinationPath, $fileName);

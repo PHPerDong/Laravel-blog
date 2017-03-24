@@ -54,6 +54,7 @@
 								null,
 								null,
 								null,
+								null,
 								null
 							],
 						});
@@ -94,6 +95,7 @@
 								<th>ID</th>
 								<th>标题</th>
 								<th>标签</th>
+								<th>分类</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -112,11 +114,15 @@
 									@endforeach
 								</td>
 								<td>
-									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
+									@foreach($v->categorys as $vs)
+										{{$vs->name}}
+									@endforeach
+								</td>
+								<td>
+									<a href="{{route('article.edit',['id'=>$v->id])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
 										修改
 									</a>
-									
-									<a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+									<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left">
 										删除
 									</a>
 

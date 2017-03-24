@@ -55,6 +55,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
         $router->resource('/article','ArticleController');
         //文章分类管理
         $router->resource('/classification','CategoryController');
+        //文章修改
+
         //文章分类删除
         $router->post('/delete/class',['as' => 'class.delete', 'uses' => 'CategoryController@delClass']);
         //文章分类修改
@@ -70,6 +72,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','domain'=>env('BACKGROUND_D
 
         //多图上传
         $router->post('/upload/upload','UploadController@upload');
+        //签到小功能
+        $router->get('/check','SystemController@checkIn');
 
 
     });

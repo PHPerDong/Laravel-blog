@@ -20,9 +20,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/xenon-components.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/xenon-skins.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}">
-
+    <link href='{{ asset('fullcalendar-3.3.0/fullcalendar.min.css')}}' rel='stylesheet' />
+    <link href='{{ asset('fullcalendar-3.3.0/fullcalendar.print.min.css')}}' rel='stylesheet' media='print' />
     <script src="{{ asset('assets/js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{ asset('zeroModal/zeroModal.js') }}"></script>
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

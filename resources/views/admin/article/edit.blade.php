@@ -11,7 +11,7 @@
     <div class="page-title">
 
             <div class="title-env">
-                <h1 class="title">文章添加</h1>
+                <h1 class="title">文章修改</h1>
                 {{--<p class="description">Plain text boxes, select dropdowns and other basic form elements</p>--}}
             </div>
 
@@ -27,7 +27,7 @@
                     </li>
                     <li class="active">
 
-                        <strong>文章添加</strong>
+                        <strong>文章修改</strong>
                     </li>
                 </ol>
             </div>
@@ -36,7 +36,7 @@
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">文章添加</h3>
+                        <h3 class="panel-title">文章修改</h3>
                         <div class="panel-options">
                             <a href="#" data-toggle="panel">
                                 <span class="collapse-icon">&ndash;</span>
@@ -51,15 +51,15 @@
                         <form role="form" id="reg">
                             <div class="form-group">
                                 <label for="email-1">文章标题:</label>
-                                <input type="text" class="form-control"  name="title" id="title" placeholder="请输入">
+                                <input type="text" class="form-control"  name="title" id="title" placeholder="请输入" value="{{$article->title}}">
                             </div>
                             <div class="form-group">
                                 <label for="password-1">显示内容:</label>
-                                <input type="text" class="form-control" name="content" id="content" placeholder="请输入内容">
+                                <input type="text" class="form-control" name="content" id="content" placeholder="请输入内容" value="{{$article->content}}">
                             </div>
                             <div class="form-group">
                                 <label for="password-1">简介:</label>
-                                <textarea class="form-control" cols="5" name="introduction" id="introduction"></textarea>
+                                <textarea class="form-control" cols="5" name="introduction" id="introduction">{{$article->introduction}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="password-1">图片集:</label><br/>
@@ -67,8 +67,17 @@
                                     <i class="fa-image"></i>
                                     <span>上传多图</span>
                                 </a>
-                                <div id="photo-container"></div>
-                            </div>
+                                <div id="photo-container">
+                                    @if(!empty($article['photo']))
+                                        @foreach($article['photo'] as $v)
+                                            <div class="photo-list">
+                                                <input type="text" name="photo" value="{{$v}}" class="layui-input layui-input-inline photo" style="width:300px">
+                                                <button type="button" class="layui-btn layui-btn-danger remove-photo-btn btn btn-red">移除</button>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>c
                            {{-- <div class="form-group">
                                 <label for="password-1">缩略图:</label>
                                 <input type="file" class="form-control" name="thumb" id="thumb" placeholder="">
@@ -130,14 +139,14 @@
 
                             <div class="form-group">
                                 <label for="password-1">排序:</label>
-                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序">
+                                <input type="text" class="form-control" name="sort" id="sort" placeholder="排序" value="{{$article->sort}}" >
                             </div>
 
 
                             {{csrf_field()}}
                             <div class="form-group">
                                 {{--<button type="submit" class="btn btn-gray btn-single">添加</button>--}}
-                                <button type="submit" class="btn btn-info btn-single pull-right">添加</button>
+                                <button type="submit" class="btn btn-info btn-single pull-right">修改</button>
                             </div>
 
                         </form>

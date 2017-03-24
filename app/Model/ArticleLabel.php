@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleLabel extends Model
 {
 
-    protected $fillable = ['id','article_id','label_id'];
+    protected $fillable = ['id','article_id','label_id','name'];
 
     public function article(){
         return $this->belongsTo('App\Model\Article');
