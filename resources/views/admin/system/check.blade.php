@@ -97,7 +97,7 @@
 				dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
 				dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
 				defaultDate: '2017-03-12',
-				//editable: true,//可以移动
+				editable: true,//可以移动
 				navLinks: true, // can click day/week names to navigate views
 				eventLimit: true, // allow "more" link when too many events
 				events: [
@@ -127,7 +127,9 @@
 					{
 						title: 'Conference',
 						start: '2017-03-11',
-						end: '2017-03-13'
+						end: '2017-03-13',
+						overlap: false,
+						rendering: 'background',
 					},
 					{
 						title: 'Meeting',
