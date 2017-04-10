@@ -69,10 +69,7 @@
                                 </a>
                                 <div id="photo-container"></div>
                             </div>
-                           {{-- <div class="form-group">
-                                <label for="password-1">缩略图:</label>
-                                <input type="file" class="form-control" name="thumb" id="thumb" placeholder="">
-                            </div>--}}
+
                             <div class="form-group">
                                 <label class="control-label">所属上级分类</label>
 

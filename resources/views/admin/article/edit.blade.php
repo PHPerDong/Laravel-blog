@@ -77,7 +77,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                            </div>c
+                            </div>
                            {{-- <div class="form-group">
                                 <label for="password-1">缩略图:</label>
                                 <input type="file" class="form-control" name="thumb" id="thumb" placeholder="">
@@ -323,8 +323,8 @@
                     });
                     //var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串
                     $.ajax({
-                        url: "{{route('article.store')}}",
-                        method: 'POST',
+                        url: "{{route('article.update',['id'=>$article->id])}}",
+                        method: 'PUT',
                         dataType: 'json',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

@@ -9,7 +9,7 @@ class ArticleController extends BaseController
 {
     //
     public function index(){
-        $article = Article::orderBy('id','desc')->with('labels')->paginate(1);
+        $article = Article::orderBy('id','desc')->with('labels')->paginate(10);
         //dd($article->total());
         return view('admin.article.article',compact('article'));
     }
@@ -69,7 +69,8 @@ class ArticleController extends BaseController
     {
         //
         $label = Label::orderBy('id','desc')->get();
-        $article = Article::find($id);
+        $article = Article::with('labels')->find($id);
+        //dd($article);
         //dd(count($article['photo']));
         //dd($article['photo']);
         return view('admin.article.edit',compact('label','article'));
@@ -85,6 +86,25 @@ class ArticleController extends BaseController
     public function update(Request $request, $id)
     {
         //
+        //dd($request->all());
+        $article = Article::find($id);
+        if(!$article){
+            return response()->json(array('accessGranted'=>0,'msg'=>'不存在该文章'));
+        }
+        $data = $request->all();
+        $label = $data['label_id'];
+        unset($data['label_id']);
+        $article->update($data);
+
+        foreach($label as $v){
+            $article->labels()->sync($v,[
+                'name'=> '测试2332',
+            ]);
+       }
+
+        return response()->json(array('accessGranted'=>1));
+
+
     }
 
     /**

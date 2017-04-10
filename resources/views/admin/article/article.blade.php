@@ -48,7 +48,7 @@
 					jQuery(document).ready(function($)
 					{
 						$("#example-2").dataTable({
-							dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+							//dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
 							aoColumns: [
 								{bSortable: false},
 								null,
@@ -99,7 +99,7 @@
 								<th>操作</th>
 							</tr>
 						</thead>
-						
+
 						<tbody class="middle-align">
 						@foreach($article as $v)
 							<tr>
@@ -119,7 +119,7 @@
 									@endforeach
 								</td>
 								<td>
-									<a href="{{route('article.edit',['id'=>$v->id])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+									<a href="{{route('article.edit',['id'=>$v->id,'pid'=>$v->pid])}}" class="btn btn-secondary btn-sm btn-icon icon-left">
 										修改
 									</a>
 									<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left">
@@ -131,11 +131,18 @@
 							@endforeach
 							
 						</tbody>
+
 					</table>
-					
+					<div class="col-sm-6 col-xs-12">
+						<div class="dataTables_paginate paging_simple_numbers" id="dt_basic_paginate">
+							{{--分页--}}
+							{!!$article->appends(Request::all())->links()!!}
+						</div>
+					</div>
 				</div>
+
 			</div>
-			
+
 @endsection
 
 

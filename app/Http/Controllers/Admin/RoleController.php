@@ -13,12 +13,5 @@ use Config;
 
 class Role extends EntrustRole
 {
-    protected $authGuardName='admin';
 
-    protected $fillable=['name','display_name','description'];
-
-    public function users()
-    {
-        return $this->belongsToMany(Config::get('entrust.user'), Config::get('entrust.role_user_table'),Config::get('entrust.role_foreign_key'),Config::get('entrust.user_foreign_key'));
-    }
 }
